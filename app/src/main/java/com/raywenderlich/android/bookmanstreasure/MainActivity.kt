@@ -35,8 +35,12 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import com.crashlytics.android.Crashlytics
 import com.raywenderlich.android.bookmanstreasure.ui.MainActivityDelegate
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 class MainActivity : AppCompatActivity(), MainActivityDelegate {
 
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity(), MainActivityDelegate {
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-
+    Fabric.with(this, Crashlytics())
     //TODO initialize navigation graph
   }
 
