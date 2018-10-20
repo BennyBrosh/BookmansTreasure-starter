@@ -49,10 +49,10 @@ jobs:
           name: 'Deploy to Fabric'
           command: "echo \"Branch: ${CIRCLE_BRANCH} , PR: ${CIRCLE_PULL_REQUEST}\"\n
           if [ \"${CIRCLE_BRANCH}\" == \"develop\" -o \"${CIRCLE_PULL_REQUEST}\" != \"\" ]; then\n
-            ./gradlew crashlyticsUploadDistributionDevelopmentRelease --stacktrace --debug --no-daemon\n
+            ./gradlew crashlyticsUploadDistributionDebug --stacktrace --debug --no-daemon\n
             fi\n
             \n
             release=$(cut -c-7 <<< \"${CIRCLE_BRANCH}\")\n
             if [ \"$release\" == \"release\" ]; then\n
-              ./gradlew crashlyticsUploadDistributionProductionRelease --stacktrace --debug --no-daemon\n
+              ./gradlew crashlyticsUploadDistributionRelease --stacktrace --debug --no-daemon\n
               fi"
