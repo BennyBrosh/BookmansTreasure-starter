@@ -35,41 +35,44 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import androidx.navigation.Navigation.findNavController
 import com.crashlytics.android.Crashlytics
 import com.raywenderlich.android.bookmanstreasure.ui.MainActivityDelegate
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
 class MainActivity : AppCompatActivity(), MainActivityDelegate {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.AppTheme)
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-    Fabric.with(this, Crashlytics())
-    //TODO initialize navigation graph
-  }
-
-  override fun onBackPressed() {
-    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-      drawerLayout.closeDrawer(GravityCompat.START)
-    } else {
-      super.onBackPressed()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        Fabric.with(this, Crashlytics())
+        //TODO initialize navigation graph
     }
-  }
 
-  override fun setupNavDrawer(toolbar: Toolbar) {
-    val toggle = ActionBarDrawerToggle(
-        this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-    drawerLayout.addDrawerListener(toggle)
-    toggle.syncState()
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
 
-    //TODO setup Navigation Drawer menu item actions
-  }
+    override fun setupNavDrawer(toolbar: Toolbar) {
+        val toggle = ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-  override fun enableNavDrawer(enable: Boolean) {
-    drawerLayout.isEnabled = enable
-  }
+        //TODO setup Navigation Drawer menu item actions
+    }
+
+    override fun onSupportNavigateUp() =
+            findNavController(this, R.id.navHostFragment).navigateUp()
+
+    override fun enableNavDrawer(enable: Boolean) {
+        drawerLayout.isEnabled = enable
+    }
 }
